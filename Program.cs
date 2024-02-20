@@ -9,7 +9,7 @@ class Program
             @"weatherData.csv");
         var reader = new StreamReader(path);
         List<WeatherDate> weatherDates = new List<WeatherDate>();
-        CultureInfo culture = new CultureInfo("en-US");
+        
         string line;
         // ignore the first line (header)
         reader.ReadLine();
