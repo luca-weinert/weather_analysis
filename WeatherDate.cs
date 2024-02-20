@@ -2,8 +2,10 @@
 
 public class WeatherDate
 {
-    public string MeasuringStationNumber { get; set; }
-    public string SunshineHours { get; set; }
-    public string RainAmount { get; set; }
-    public string Temperature { get; set; }
+    public int MeasuringStationNumber { get; set; }
+    
+    public string DateOfMeasurement { get; set; }
+    public float SunshineHours { get; set; }
+    public float RainAmount { get; set; }
+    public float Temperature { get; set; }
 }

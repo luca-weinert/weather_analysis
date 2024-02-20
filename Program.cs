@@ -1,4 +1,5 @@
-﻿using weather_analysis;
+﻿using System.Globalization;
+using weather_analysis;
 
 class Program
 {
@@ -8,47 +9,63 @@ class Program
             @"weatherData.csv");
         var reader = new StreamReader(path);
         List<WeatherDate> weatherDates = new List<WeatherDate>();
-        
+        CultureInfo culture = new CultureInfo("en-US");
         string line;
         // ignore the first line (header)
         reader.ReadLine();
         
         while ((line = reader.ReadLine()) != null)
         {
-            string[] WheatherData = line.Split(",");
+            string[] WeatherData = line.Split(",");
             
-                Console.WriteLine(WheatherData);
+                Console.WriteLine(WeatherData);
                 
-                if (WheatherData.Length == 14)
+                if (WeatherData.Length == 14)
                 {
-                    WeatherDate weatherDate = new WeatherDate()
+                    var weatherDate = new WeatherDate()
                     {
-                        MeasuringStationNumber = WheatherData[0],
-                        SunshineHours = WheatherData[10],
-                        Temperature = WheatherData[5],
-                        RainAmount = "test"
+                        MeasuringStationNumber = Convert.ToInt32(WeatherData[0]),
+                        DateOfMeasurement = WeatherData[1],
+                        SunshineHours = float.Parse(WeatherData[10],CultureInfo.InvariantCulture.NumberFormat),
+                        Temperature = float.Parse(WeatherData[5], CultureInfo.InvariantCulture.NumberFormat),
+                        RainAmount = float.Parse(WeatherData[12], CultureInfo.InvariantCulture.NumberFormat),
                     };
                     weatherDates.Add(weatherDate);
                 }
         }
             
-        foreach (WeatherDate weatherDate in weatherDates)
+        foreach (var weatherDate in weatherDates)
         {
-            Console.WriteLine($"MeasuringStationNumber: {weatherDate.MeasuringStationNumber}, SunshineHours: {weatherDate.SunshineHours}, Temperature: {weatherDate.Temperature}, RainAmount: {weatherDate.RainAmount}");
+            Console.WriteLine($"MeasuringStationNumber: {weatherDate.MeasuringStationNumber} | DateOfMeasurement: {weatherDate.DateOfMeasurement} | SunshineHours: {weatherDate.SunshineHours} | Temperature: {weatherDate.Temperature} | RainAmount: {weatherDate.RainAmount}");
         }
 
         return weatherDates;
     }
 
-    public static string GetHighestTemperature(List<WeatherDate> weatherDates)
+    public static (int, string, double) GetHighestTemperature(List<WeatherDate> weatherDates)
     {
-
-        return "test";
+        int NumberOfMeasuringStationForHighestTemperature = 0;
+        string DateOfHighestTemperature = "";
+        double HighestTemperature = 0;
+        
+        
+        foreach (var weatherDate in weatherDates)
+        {
+            double currentTemperature = weatherDate.Temperature;
+            if (currentTemperature > HighestTemperature)
+            {
+                NumberOfMeasuringStationForHighestTemperature = weatherDate.MeasuringStationNumber;
+                DateOfHighestTemperature = weatherDate.DateOfMeasurement;
+                HighestTemperature = currentTemperature;
+            }
+        }
+        return (NumberOfMeasuringStationForHighestTemperature, DateOfHighestTemperature, HighestTemperature);
     }
     
     public static void Main(string[] args)
     {
         var weatherDates = ReadCSV();
-        var highestTemperature =  GetHighestTemperature(weatherDates);
+        var (NumberOfMeasuringStation, DateOfMeasuring, Temperature) = GetHighestTemperature(weatherDates);
+        Console.WriteLine($"the highest temperature ist {Temperature} measured from the station {NumberOfMeasuringStation} on {DateOfMeasuring}");
     }
 }
