@@ -8,7 +8,7 @@ class Program
         string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
             @"weatherData.csv");
         var reader = new StreamReader(path);
-        List<Measurement> weatherDates = new List<Measurement>();
+        List<Measurement> measurements = new List<Measurement>();
         
         string line;
         // ignore the first line (header)
@@ -16,23 +16,23 @@ class Program
         
         while ((line = reader.ReadLine()) != null)
         {
-            string[] WeatherData = line.Split(",");
+            string[] csvLineValues = line.Split(",");
             
-                Console.WriteLine(WeatherData);
+                Console.WriteLine(csvLineValues);
                 
-                if (WeatherData.Length == 14)
+                if (csvLineValues.Length == 14)
                 {
                     try
                     {
-                        var weatherDate = new Measurement()
+                        var measurement = new Measurement()
                         {
-                            MeasuringStationNumber = Convert.ToInt32(WeatherData[0]),
-                            DateOfMeasurement = WeatherData[1],
-                            SunshineHours = float.Parse(WeatherData[10],CultureInfo.InvariantCulture.NumberFormat),
-                            Temperature = float.Parse(WeatherData[5], CultureInfo.InvariantCulture.NumberFormat),
-                            RainAmount = float.Parse(WeatherData[12], CultureInfo.InvariantCulture.NumberFormat),
+                            MeasuringStationNumber = Convert.ToInt32(csvLineValues[0]),
+                            DateOfMeasurement = csvLineValues[1],
+                            SunshineHours = float.Parse(csvLineValues[10],CultureInfo.InvariantCulture.NumberFormat),
+                            Temperature = float.Parse(csvLineValues[5], CultureInfo.InvariantCulture.NumberFormat),
+                            RainAmount = float.Parse(csvLineValues[12], CultureInfo.InvariantCulture.NumberFormat),
                         };
-                        weatherDates.Add(weatherDate);
+                        measurements.Add(measurement);
                     }
                     catch (FormatException exception)
                     {
@@ -41,16 +41,16 @@ class Program
                 }
                 else
                 {
-                    Console.WriteLine($"Incomplete data line (length {WeatherData.Length}): line: {line}");
+                    Console.WriteLine($"Incomplete data line (length {csvLineValues.Length}): line: {line}");
                 }
         }
             
-        foreach (var weatherDate in weatherDates)
+        foreach (var measurement in measurements)
         {
-            Console.WriteLine($"MeasuringStationNumber: {weatherDate.MeasuringStationNumber} | DateOfMeasurement: {weatherDate.DateOfMeasurement} | SunshineHours: {weatherDate.SunshineHours} | Temperature: {weatherDate.Temperature} | RainAmount: {weatherDate.RainAmount}");
+            Console.WriteLine($"MeasuringStationNumber: {measurement.MeasuringStationNumber} | DateOfMeasurement: {measurement.DateOfMeasurement} | SunshineHours: {measurement.SunshineHours} | Temperature: {measurement.Temperature} | RainAmount: {measurement.RainAmount}");
         }
 
-        return weatherDates;
+        return measurements;
     }
     
     public static void Main(string[] args)
