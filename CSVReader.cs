@@ -23,8 +23,6 @@ public class CSVReader
         {
             string[] csvLineValues = line.Split(",");
             
-                Console.WriteLine(csvLineValues);
-                
                 if (csvLineValues.Length == 14)
                 {
                     try

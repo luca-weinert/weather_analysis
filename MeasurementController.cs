@@ -8,11 +8,6 @@ public class MeasurementController
     {
         
     }
-
-    public void GetLowestTemperature()
-    {
-        
-    }
     
     public void GetAverageTemperature(List<Measurement> weatherData)
     {
@@ -25,6 +20,15 @@ public class MeasurementController
 
         double ?TemperatureAverage = TemperatureSum / weatherData.Count; 
         Console.WriteLine($"the Temperature Average is: {TemperatureAverage}");
+    }
+
+    public void GetMaximumMeasurement()
+    {
+        
+    }   
+    public void GetMinimumMeasurement()
+    {
+        
     }
     
     public (int?, string?, double?) GetHighestTemperature()
