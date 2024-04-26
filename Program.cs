@@ -17,9 +17,6 @@ class Program
         while ((line = reader.ReadLine()) != null)
         {
             string[] WeatherData = line.Split(",");
-            
-                Console.WriteLine(WeatherData);
-                
                 if (WeatherData.Length == 14)
                 {
                     try
@@ -56,9 +53,15 @@ class Program
     public static void Main(string[] args)
     {
         var MeasurementController = new MeasurementController();
-        MeasurementController.Measurements = ReadCSV();
+        /*MeasurementController.Measurements = ReadCSV();
         var (NumberOfMeasuringStation, DateOfMeasuring, Temperature) = MeasurementController.GetHighestTemperature();
         Console.WriteLine($"the highest temperature ist {Temperature} measured from the station {NumberOfMeasuringStation} on {DateOfMeasuring}");
-        /*GetAverageTemperature(weatherData);*/
+        MeasurementController.GetAverageTemperature();
+        MeasurementController.GetLowestTemperature();*/
+       
+        int[] array = { 73, 57, 49, 99, 133, 20, 1 };
+        Console.WriteLine(array);
+        var test = MeasurementController.Sort(array);
+        Console.WriteLine(test);
     }
 }
