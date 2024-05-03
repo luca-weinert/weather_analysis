@@ -49,19 +49,15 @@ class Program
 
         return weatherDates;
     }
-    
+
     public static void Main(string[] args)
     {
+        Console.WriteLine("Welcome to the Weather analysis");
+        Console.WriteLine("what do you want to do?");
+        Console.ReadKey();
+                    
+        var CSVReader = new CSVReader();
         var MeasurementController = new MeasurementController();
-        /*MeasurementController.Measurements = ReadCSV();
-        var (NumberOfMeasuringStation, DateOfMeasuring, Temperature) = MeasurementController.GetHighestTemperature();
-        Console.WriteLine($"the highest temperature ist {Temperature} measured from the station {NumberOfMeasuringStation} on {DateOfMeasuring}");
-        MeasurementController.GetAverageTemperature();
-        MeasurementController.GetLowestTemperature();*/
-       
-        int[] array = { 73, 57, 49, 99, 133, 20, 1 };
-        Console.WriteLine(array);
-        var test = MeasurementController.Sort(array);
-        Console.WriteLine(test);
+
     }
 }

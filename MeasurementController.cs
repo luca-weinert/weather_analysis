@@ -35,6 +35,15 @@ public class MeasurementController
         double ?TemperatureAverage = TemperatureSum / Measurements.Count; 
         Console.WriteLine($"the Temperature Average is: {TemperatureAverage}");
     }
+
+    public void GetMaximumMeasurement()
+    {
+        
+    }   
+    public void GetMinimumMeasurement()
+    {
+        
+    }
     
     public (int?, string?, double?) GetHighestTemperature()
     {
@@ -67,9 +76,7 @@ public class MeasurementController
             {
                 if (array[j] > array[j + 1])
                 {
-                    var tempVar = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = tempVar;
+                    (array[j], array[j + 1]) = (array[j + 1], array[j]);
                 }
             }
         }
