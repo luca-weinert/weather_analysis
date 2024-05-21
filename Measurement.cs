@@ -6,7 +6,16 @@ public class Measurement
     public DateTime Date;
     public Double Temperature;
 
-    public void IsDoubleGreaterThan()
+    public void IsGreaterThan(double other)
+    {
+        
+    }
+
+    public void IsGreaterThan(DateTime other)
+    {
+        
+    }
+    public void IsGreaterThan(string other)
     {
         
     }
