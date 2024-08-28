@@ -12,7 +12,8 @@ class Program
             new Measurement { Temperature = 90, Date = DateTime.Now, StationNumber = 3 },
             new Measurement { Temperature = 4, Date = DateTime.Now, StationNumber = 3 },
             new Measurement { Temperature = 2, Date = DateTime.Now, StationNumber = 3 },
-            new Measurement { Temperature = -2, Date = DateTime.Now, StationNumber = 3 }
+            new Measurement { Temperature = -2, Date = DateTime.Now, StationNumber = 3 },
+            new Measurement { Temperature = -5.5, Date = DateTime.Now, StationNumber = 3 }
         };
 
         var measurementList = new MeasurementList
@@ -25,7 +26,7 @@ class Program
             Console.WriteLine(measurement.Temperature);
         }
         
-        measurementList.Sort(SortBy.Temperature, SortingWith.BubbleSort);
+        measurementList.Sort(SortBy.Temperature, SortingWith.BubbleSort, SortOrder.Ascending);
 
         Console.WriteLine("------------");
        

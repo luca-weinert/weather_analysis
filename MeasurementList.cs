@@ -4,19 +4,19 @@ public class MeasurementList
 {
     public List<Measurement> Measurements;
 
-    public void Sort(SortBy sortBy, SortingWith sortingWith)
+    public void Sort(SortBy sortBy, SortingWith sortingWith, SortOrder sortOrder)
     {
         switch(sortingWith)
         {
             case SortingWith.BubbleSort:
             {
-                BubbleSort();
+                BubbleSort(sortBy);
                 break;
             }
                 
             case SortingWith.SelectionSort:
             {
-                SelectionSort();
+                SelectionSort(sortBy);
                 break;
             }
             default:
@@ -24,8 +24,9 @@ public class MeasurementList
         }
     }
 
-    private void SelectionSort()
+    private void SelectionSort(SortBy sortBy)
     {
+        Console.WriteLine("using SelectionSort");
         var measurementsCount = Measurements.Count;
         
         // the outer loop controls the current position where the next smallest element should be placed
@@ -59,21 +60,27 @@ public class MeasurementList
         }
     }
 
-    private void BubbleSort()
+    private void BubbleSort(SortBy sortBy)
     {
+        Console.WriteLine("using BubbleSort");
         var measurementsCount = Measurements.Count;
+        bool swapped;
 
-        for (int i = 0; i < measurementsCount -1; i++)
+        do
         {
-            for (int j = 0; j < measurementsCount - i - 1; j++)
+            swapped = false;
+            for (var i = 0; i < measurementsCount -1; i++)
             {
-                if(Measurements[j].Temperature > Measurements[j + 1].Temperature)
+                if (Measurements[i].IsGreaterThan(Measurements[i + 1], sortBy))
                 {
-                    var tempVar = Measurements[j];
-                    Measurements[j] = Measurements[j + 1];
-                    Measurements[j + 1] = tempVar;
+                    // swap Measurements[i] and Measurements[i + 1] 
+                    var greaterMeasurement = Measurements[i];
+                    Measurements[i] = Measurements[i + 1];
+                    Measurements[i + 1] = greaterMeasurement;
+
+                    swapped = true;
                 }
             }
-        }
+        } while (swapped);
     }
 }
